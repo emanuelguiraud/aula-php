@@ -1,10 +1,18 @@
 <?php
 
-$nome = "emanuel";
-$idade = 23;
-$peso = 69.3;
+    $nome = "Edir"; //string
+    $idade = 25; //integer
+    $peso = 75.5; //float
+    $acordado = true; // boolean
 
-echo "$nome\n $idade\n";
+   echo "Olá $nome \n";
+   echo "Sua idade é $idade e seu peso é $peso \n";
 
-var_dump($idade, $nome);
+    var_dump($nome);
+    var_dump($idade);
+    var_dump($peso);
+    var_dump($acordado);
+
+
+
 ?>

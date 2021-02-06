@@ -1,44 +1,55 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>aula 2</title>
+        <title>PHP - Aula 2</title>
+
     </head>
+
     <body>
-        <h1> PHP - Aula 2</h1>
+        <h1>PHP - Aula 2</h1>
 
         <form method="POST">
             <label>Numero 1</label>
-            <input type="text" name="campo-nun1"  autocomplete="off"/>
+            <input type="text" name="campo-num1" />
 
             <label>Numero 2</label>
-            <input type="text" name="campo-nun2"  autocomplete="off"/>
+            <input type="text" name="campo-num2" />
 
             <button>Enviar</button>
         </form>
 
-        <?php
-            $n1  = $_POST["campo-nun1"];
-            $n2 = $_POST["campo-nun2"];
-            $maior = "";
-            $soma = ($n1 + $n2);
-            if ($n1 == $n2)
+
+        <p>
+
+          <?php
+               $n1 = $_POST["campo-num1"];
+               $n2 = $_POST["campo-num2"];
+
+                $soma = $n1 + $n2;
+
+                $maior = "";
+
+            if($n1 == $n2)
             {
                 //verdade
                 $maior = "Igual";
-            } elseif ($n1 > $n2)
+
+            } elseif($n1 > $n2) 
             {
                 //true
-                $maior = $n1;
-            } else
+                $maior = "Num 1";
+            } else 
             {
-                $maior = $n2;
+                $maior = "Num 2";
             }
-        ?>
-        <p>
-        SOMA: <?php echo $soma; ?>
-        </br>
-        MAIOR É: <?php echo $maior; ?>
+                
+           ?>
+
+            <br>            
+            
+            Soma: <?php echo $soma; ?>
+            <br>
+            O maior é: <?php echo $maior; ?>
         </p>
+
     </body>
 </html>
