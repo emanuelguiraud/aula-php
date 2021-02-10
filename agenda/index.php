@@ -55,7 +55,7 @@
 
         }
 
-       // var_dump($banco_dados);
+        var_dump($banco_dados);
     ?>
 </pre>
         <table>
