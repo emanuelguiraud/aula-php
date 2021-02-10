@@ -5,6 +5,9 @@
         $banco_dados = file("dados.csv");//Vai ler o arquivo dados.csv
 
         $novo = array();
+        
+        array_shift($banco_dados);
+
         foreach($banco_dados as $linha)
         {
             $registro = explode(",", $linha);
