@@ -1,31 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>PHP - Aula</title>
-</head>
-<body>
-    <h1>PHP - Aula 4</h1>
+<html>
+    <head>
+        <title>PHP - Aula </title>
 
-<?php
-    // E => P => S
+    </head>
 
-    // require "funcoes.php";
+    <body>
+        <h1>PHP - Aula 4</h1>
 
-    function soma($n1, $n2)
-    {
-        $soma = $n1 + $n2;
-        return $soma;
-    }
-    // escopo de função 
-    $n1 = 10;
-    $n2 = 5;
-    
-    echo soma (2,5) . "<br>";
-    echo soma (10,10) . "<br>";
+      <?php
 
-    
+//        require "funcoes.php";
 
-?>
-    
-</body>
+        // E -> P -> S
+
+        // escopo de função
+        $n1 = 10;
+        $n2 = 5;
+
+        function soma($n1, $n2)
+        {
+            $soma = $n1 + $n2;
+            return $soma;
+        }
+
+        
+        echo soma($n1, $n2) . "<br>";
+
+
+      ?>  
+
+    </body>
 </html>

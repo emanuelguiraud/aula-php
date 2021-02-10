@@ -21,6 +21,7 @@
         $cidades[0] = "Curitiba";
         $cidades[1] = "Campo Largo";
         $cidades[] = "Contenda";
+        $cidades[] = "Colombo";
 
         //Remover
         unset($cidades[3]);

@@ -1,46 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>PHP - Aula</title>
-</head>
-<body>
-    <h1>PHP - Exercicios</h1>
-    <form method="POST">
-        <fieldset>
-        <label> Valor 1</label>
-        <input type="text" name="valor1">
-        </br></br>
-        <label> Fatorial do Valor</label>
-        <input type="text" name="valor2">
-        </br></br>
+<html>
+    <head>
+        <title>PHP - Aula </title>
 
-        <button type="submit">Enviar</button>
-        </fieldset>
-    </form>
+    </head>
 
-<?php
-    if(isset($_POST["valor1"]) == true)
-    $ultimo = $_POST ["valor1"];
+    <body>
+        <h1>PHP - Exercicios</h1>
 
-    for ($inicial = 1; $inicial <= $ultimo; $inicial = $inicial + 1)
-    {
-        echo $inicial . "<br>";
-    }
-?> 
+        <form method="post">
+            <fieldset>
+                <label>Valor 1</label>
+                <input type="text" name="valor1">
+                <br><br>
 
-<?php
-     $mult = 1;
-     if(isset($_POST["valor2"]) == true)
-     $inicial = $_POST ["valor2"];
-     for ($ultimo = $inicial; $inicial >=1; $inicial = $inicial - 1)
-     {
-         echo $inicial . " * ";
-         $mult = $mult * $inicial;
-     }
-     echo " = $mult"
-?>
+                <label>Fatorial do Valor</label>
+                <input type="text" name="valor2">
+                <br><br>
+
+                <button type="submit">Enviar</button>
+            </fieldset>
+        </form>
+      
+    
     <h2>Resultado</h2>
-    <p>Imprima Números</p>
-</body>
+
+          
+<?php
+
+    require "funcoes.php";
+
+  if(isset($_POST["valor2"]) == true)
+  {
+    echo "Fatorial: ";
+
+    fatorial($_POST["valor2"]);
+    
+  }
+
+  if(isset($_POST["valor1"]) == true)
+  {
+    $ult = $_POST["valor1"];
+
+    for ($i = 1; $i <= $ult; $i = $i + 1)
+    {
+        echo $i . "<br>";
+    }    
+
+  }
+?>
+
+    </body>
 </html>

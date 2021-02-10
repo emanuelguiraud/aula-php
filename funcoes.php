@@ -1,13 +1,22 @@
 <?php
-        function soma($n1, $n2)
+
+
+    function soma($n1, $n2)
+    {
+        $soma = $n1 + $n2;
+        return $soma;
+    }
+
+    function fatorial($num)
+    {
+        $total = 1;
+        for ($i = $num; $i > 0; $i = $i -1)
         {
-            $soma = $n1 + $n2;
-            return $soma;
+            echo $i . " * ";
+            $total = $total * $i;
         }
 
-        function imprima ($n1)
-        {
-            $imprima = $n1;
-            return $imprima; 
-        }
+        echo " = $total";
+    }
+
 ?>
