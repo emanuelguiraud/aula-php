@@ -5,7 +5,7 @@
         $banco_dados = file("dados.csv");//Vai ler o arquivo dados.csv
 
         $novo = array();
-        
+
         array_shift($banco_dados);
 
         foreach($banco_dados as $linha)
@@ -27,9 +27,29 @@
 
     function adicionarContato( $nome, $telefone, $email, $cidade)
     {
+        $linha = "\n$nome, $telefone, $email, $cidade";
+
+        file_put_contents("dados.csv", $linha, FILE_APPEND);
+
         $banco_dados = listaContatos();
-        $banco_dados[] = array("nome" => $nome, "telefone" => $telefone, "email" => $email, "cidade" => $cidade);
         return $banco_dados;
     }
 
+    function validaform ($campos)
+    {
+        $valido = true;
+        //Verifica se os campos foram preenchidos
+        foreach ($campos as $input)
+        {
+            if ($input == "")
+            {
+                $valido = false;
+            }
+        }
+        if (strlen($campos["nome"])< 3)
+        {
+            $valido = false;
+        }
+        return $valido;
+    }
 ?>

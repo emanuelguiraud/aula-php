@@ -1,11 +1,62 @@
+<?php
+
+        require "bancodedados.php";
+
+       
+        $nome = "";
+        $telefone = "";
+        $email = "";
+        $cidade = "";
+        $formValido = true;
+
+        $banco_dados = listaContatos();
+        
+        if (count($_POST) > 0 )
+        {
+            $formValido = validaform($_POST);
+                if ($formValido == true)
+                {
+                    $nome = $_POST["nome"];
+                    $telefone = $_POST["telefone"];
+                    $email = $_POST["email"];
+                    $cidade = $_POST["cidade"];
+
+                     $banco_dados = adicionarContato($nome, $telefone, $email, $cidade);
+                }
+
+        }
+
+        //var_dump($banco_dados);
+    ?>
+
 <html>
     <head>
         <title>Agenda</title>
+        <style>
+            .msg-erro{
+                border: 1px solid red;
+                padding: 6px;
+                background-color: rosybrown;
+                font-weight: bold;
+                color: black;
+                text-align: center;
+
+            }
+        </style>
     </head>
 
     <body>
         <h1>Agenda de Contatos</h1>
-
+    <?php 
+    if($formValido == false)
+    {
+    ?>
+        <div class="msg-erro">
+            ATENÇÃO: Preencha todos os campos
+        </div>
+    <?php
+    }
+    ?>
         <form method="POST">
             <fieldset>
                 <legend>Dados do Contato</legend>
@@ -19,7 +70,7 @@
                 <br>
 
                 <label>Email</label>
-                <input type="text" name="email">
+                <input type="email" name="email">
                 <br>
 
                 <label>Cidade</label>
@@ -32,31 +83,7 @@
         </form>
 
 <pre>
-    <?php
-
-        require "bancodedados.php";
-
-       
-        $nome = "";
-        $telefone = "";
-        $email = "";
-        $cidade = "";
-
-        $banco_dados = listaContatos();
-        
-        if (count($_POST) > 0 )
-        {
-            $nome = $_POST["nome"];
-            $telefone = $_POST["telefone"];
-            $email = $_POST["email"];
-            $cidade = $_POST["cidade"];
-
-            $banco_dados = adicionarContato($nome, $telefone, $email, $cidade);
-
-        }
-
-        //var_dump($banco_dados);
-    ?>
+    
 </pre>
         <table>
             <thead>
