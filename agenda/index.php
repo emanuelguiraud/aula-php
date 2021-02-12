@@ -10,54 +10,84 @@
         $formValido = true;
 
         $banco_dados = listaContatos();
+        //var_dump($banco_dados);
         
         if (count($_POST) > 0 )
         {
-            $formValido = validaform($_POST);
-                if ($formValido == true)
-                {
-                    $nome = $_POST["nome"];
-                    $telefone = $_POST["telefone"];
-                    $email = $_POST["email"];
-                    $cidade = $_POST["cidade"];
+            $formValido = validaForm($_POST);
 
-                     $banco_dados = adicionarContato($nome, $telefone, $email, $cidade);
+            if ( $formValido == "")
+            {
+                $nome = $_POST["nome"];
+                $telefone = $_POST["telefone"];
+                $email = $_POST["email"];
+                $cidade = $_POST["cidade"];
+
+                //Ve se nao esta cadastrado
+                if (existeEmail($email) == true)
+                {
+                    $formValido = "O e-mail já foi cadastrado";
+                }
+                else
+                {
+                    $banco_dados = adicionarContato($nome, $telefone, $email, $cidade);
                 }
 
-        }
+                
+            } 
 
-        //var_dump($banco_dados);
+        }      
     ?>
 
 <html>
     <head>
         <title>Agenda</title>
+
         <style>
             .msg-erro{
                 border: 1px solid red;
-                padding: 6px;
-                background-color: rosybrown;
-                font-weight: bold;
-                color: black;
+                padding: 4px;
+                background-color: bisque;
+                color: red;
                 text-align: center;
+            }
 
+            .tabela {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .tabela th, .tabela td{
+                border: 1px solid black;
+                padding: 4px;
+            }
+            .tabela thead {
+                background-color: silver;
+            }
+            .form-cadastro label{
+                width: 100px;
+                display: inline-block;
+            }
+            .form-cadastro {
+                width: 50%;
             }
         </style>
     </head>
 
     <body>
         <h1>Agenda de Contatos</h1>
-    <?php 
-    if($formValido == false)
-    {
-    ?>
-        <div class="msg-erro">
-            ATENÇÃO: Preencha todos os campos
-        </div>
-    <?php
-    }
-    ?>
-        <form method="POST">
+
+<?php 
+if($formValido != "")
+{
+?>
+    <div class="msg-erro">
+       <?php echo $formValido; ?>
+    </div>
+
+<?php 
+}
+?>
+        <form method="POST" class="form-cadastro">
             <fieldset>
                 <legend>Dados do Contato</legend>
 
@@ -70,7 +100,7 @@
                 <br>
 
                 <label>Email</label>
-                <input type="email" name="email">
+                <input type="text" name="email">
                 <br>
 
                 <label>Cidade</label>
@@ -82,10 +112,7 @@
             </fieldset>
         </form>
 
-<pre>
-    
-</pre>
-        <table>
+        <table class="tabela">
             <thead>
             <tr>
                 <th>Nome</th>

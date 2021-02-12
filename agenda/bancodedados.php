@@ -2,7 +2,7 @@
 
     function listaContatos()
     {
-        $banco_dados = file("dados.csv");//Vai ler o arquivo dados.csv
+        $banco_dados = file("dados.csv");
 
         $novo = array();
 
@@ -11,45 +11,86 @@
         foreach($banco_dados as $linha)
         {
             $registro = explode(",", $linha);
-            $novo[] = array ("nome" => $registro[0], "telefone" => $registro[1], "email" => $registro[2], "cidade" => $registro[3]);
+            $novo[] = array("nome" => $registro[0], "telefone" => $registro[1], "email" => $registro[2], "cidade" => $registro[3]);
         }
 
         return $novo;
-
-
-        //Comentado aula anterior aula 5
-        //$banco_dados[0] = array("nome" => "Bruce Waine", "telefone" => "11-2222-3333", "email" => "brtuce@waine.com", "cidade" => "Gothan City");
-        //$banco_dados[1] = array("nome" => "Lex Luthor", "telefone" => "11-1233-2121", "email" => "lex@lex.com", "cidade" => "Outra City");
-        //$banco_dados[2] = array("nome" => "Diana", "telefone" => "21-333-1211", "email" => "diana@hotmail.com", "cidade" => "Thmenis");
-
-        return $banco_dados;
     }
 
     function adicionarContato( $nome, $telefone, $email, $cidade)
     {
+
         $linha = "\n$nome, $telefone, $email, $cidade";
 
         file_put_contents("dados.csv", $linha, FILE_APPEND);
 
-        $banco_dados = listaContatos();
+        $banco_dados = listaContatos();        
         return $banco_dados;
     }
 
-    function validaform ($campos)
+    function validaForm($campos)
     {
-        $valido = true;
-        //Verifica se os campos foram preenchidos
-        foreach ($campos as $input)
+        
+        $msg_erro = "";
+        
+
+        // verifica se os campos preenchidos
+        foreach($campos as $chave => $valor)
         {
-            if ($input == "")
+            if ($valor == "")
             {
-                $valido = false;
+                $msg_erro = "O campo $chave é obrigatório";
             }
         }
-        if (strlen($campos["nome"])< 3)
+
+        if (strlen($campos["nome"]) < 3)
+        {
+            
+            $msg_erro = "O campo nome precisa ser Preenchido";
+        }
+
+        if(preg_match("/^\([0-9][0-9]\)[0-9]{4,5}-[0-9]{4}/", $campos["telefone"]) == false)
+        {
+            $msg_erro = "O campo telefone esta com o formato invalido";
+
+        }
+
+        //Verifica e-mail Com função
+        /*if (filter_var($campos["email"],FILTER_VALIDATE_EMAIL))
+        /{
+            $valido = true;
+        }
+        else
         {
             $valido = false;
+        }*/
+
+        //Verifica e-mail com regex (Expressãoes regulares)
+
+        if(preg_match("/^[0-9a-zA-Z._]*@[0-9a-zA-Z]*\.[a-z.]*/", $campos["email"]) == false)
+        {
+            $msg_erro = "O campo email esta com o formato invalido";
+
         }
-        return $valido;
+
+        return $msg_erro;
     }
+
+    function existeEmail ($email)
+    {
+        $dados = listaContatos();
+
+        $existe = false;
+
+        foreach($dados as $valor)
+        {
+            if (trim($valor["email"]) == trim($email))
+            {
+                $existe = true;
+            }
+        }
+
+        return $existe;
+    }
+
 ?>
