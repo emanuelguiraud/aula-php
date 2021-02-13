@@ -2,19 +2,19 @@
 
     function listaContatos()
     {
-        $banco_dados = file("dados.csv");
 
-        $novo = array();
+        // 1 passo - conexão
+        $dbcon = mysqli_connect('localhost', 'newuser', 'password', 'agenda');       
 
-        array_shift($banco_dados);
+        // 2 passo - enviar solicitação
+        $sql = "SELECT * FROM contatos";
 
-        foreach($banco_dados as $linha)
-        {
-            $registro = explode(",", $linha);
-            $novo[] = array("nome" => $registro[0], "telefone" => $registro[1], "email" => $registro[2], "cidade" => $registro[3]);
-        }
+        $retorno = mysqli_query($dbcon, $sql);        
 
-        return $novo;
+        // 3 passo - tratar o resultado do bd
+        $dados = mysqli_fetch_all($retorno, MYSQLI_ASSOC);
+
+        return $dados;
     }
 
     function adicionarContato( $nome, $telefone, $email, $cidade)
@@ -54,19 +54,7 @@
             $msg_erro = "O campo telefone esta com o formato invalido";
 
         }
-
-        //Verifica e-mail Com função
-        /*if (filter_var($campos["email"],FILTER_VALIDATE_EMAIL))
-        /{
-            $valido = true;
-        }
-        else
-        {
-            $valido = false;
-        }*/
-
-        //Verifica e-mail com regex (Expressãoes regulares)
-
+        
         if(preg_match("/^[0-9a-zA-Z._]*@[0-9a-zA-Z]*\.[a-z.]*/", $campos["email"]) == false)
         {
             $msg_erro = "O campo email esta com o formato invalido";
@@ -76,7 +64,7 @@
         return $msg_erro;
     }
 
-    function existeEmail ($email)
+    function existeEmail($email)
     {
         $dados = listaContatos();
 
@@ -84,10 +72,12 @@
 
         foreach($dados as $valor)
         {
+            
             if (trim($valor["email"]) == trim($email))
             {
                 $existe = true;
             }
+
         }
 
         return $existe;

@@ -23,17 +23,12 @@
                 $email = $_POST["email"];
                 $cidade = $_POST["cidade"];
 
-                //Ve se nao esta cadastrado
                 if (existeEmail($email) == true)
                 {
-                    $formValido = "O e-mail já foi cadastrado";
-                }
-                else
-                {
+                    $formValido = "O Email já foi cadastrado";
+                } else {
                     $banco_dados = adicionarContato($nome, $telefone, $email, $cidade);
                 }
-
-                
             } 
 
         }      
