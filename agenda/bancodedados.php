@@ -1,13 +1,27 @@
 <?php
 
-    function listaContatos()
+    /* CRUD
+
+    Create
+    Read
+    Update
+    Delete
+
+    */
+
+    define ("DB_HOST", 'localhost');
+    define ("DB_USER", 'newuser');
+    define ("DB_PASS", 'password');
+    define ("DB_NAME", 'agenda');
+
+    function listaContatos($ordem = "nome")
     {
 
         // 1 passo - conexão
-        $dbcon = mysqli_connect('localhost', 'newuser', 'password', 'agenda');       
+        $dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);       
 
         // 2 passo - enviar solicitação
-        $sql = "SELECT * FROM contatos";
+        $sql = "SELECT * FROM contatos ORDER BY $ordem ASC";
 
         $retorno = mysqli_query($dbcon, $sql);        
 
@@ -20,12 +34,20 @@
     function adicionarContato( $nome, $telefone, $email, $cidade)
     {
 
-        $linha = "\n$nome, $telefone, $email, $cidade";
+        $dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);  
 
-        file_put_contents("dados.csv", $linha, FILE_APPEND);
+        $sql = "INSERT INTO contatos (nome, telefone, email, cidade) 
+                VALUES ('$nome', '$telefone', '$email', '$cidade')";
 
-        $banco_dados = listaContatos();        
-        return $banco_dados;
+        $retorno = mysqli_query($dbcon, $sql);          
+        
+        if ($retorno == true)
+        {
+            return listaContatos();  
+        } else 
+        {
+            echo "Erro ao executar SQL";
+        }
     }
 
     function validaForm($campos)

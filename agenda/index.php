@@ -2,15 +2,25 @@
 
         require "bancodedados.php";
 
-       
+               
         $nome = "";
         $telefone = "";
         $email = "";
         $cidade = "";
-        $formValido = true;
+        $formValido = "";
 
-        $banco_dados = listaContatos();
-        //var_dump($banco_dados);
+        // if (isset($_GET["ord"]))
+        // {
+        //     $ord = $_GET["ord"];
+        // } else {
+        //     $ord = "";
+        // }
+
+        // if ternario
+        $ord = (isset($_GET["ord"])) ? $_GET["ord"] : "nome";
+
+        $banco_dados = listaContatos($ord);
+       
         
         if (count($_POST) > 0 )
         {
@@ -110,10 +120,11 @@ if($formValido != "")
         <table class="tabela">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>Cidade</th>
+                <th><a href="?ord=nome"> Nome </a></th>
+                <th><a href="?ord=telefone">Telefone</a></th>
+                <th><a href="?ord=email">Email</a></th>
+                <th><a href="?ord=cidade">Cidade</a></th>
+                <th>Ações</th>
             </tr>
             </thead>
 
@@ -122,11 +133,14 @@ if($formValido != "")
             foreach($banco_dados as $linha)
             {
         
-               echo " <tr>";
+                $bt_delete = '<a href="delete.php?id='. $linha["id"]. '">[x]</a>';
+
+               echo ' <tr>';
                echo "<td>" . $linha["nome"] ." </td>";
                echo "<td>" . $linha["telefone"] ." </td>";
                echo "<td>" . $linha["email"] ." </td>";
                echo "<td>" . $linha["cidade"] ." </td>";
+               echo "<td> $bt_delete </td>";
                echo "</tr>";
         
             }
